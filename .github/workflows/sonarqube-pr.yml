@@ -31,5 +31,5 @@ jobs:
           -Dsonar.pullrequest.branch=${{ github.HEAD_REF }}
           -Dsonar.pullrequest.base=${{ github.BASE_REF }}
           -Dsonar.pullrequest.github.repository=${{ github.repository }}
+          -Dsonar.scm.revision=${{ github.event.pull_request.head.sha }} 
           -Dsonar.scm.provider=git
-          -Dsonar.java.binaries=/tmp
