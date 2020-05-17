@@ -20,7 +20,7 @@ pipeline {
             -Dsonar.projectKey=acg \
             -Dsonar.pullrequest.key=${env.CHANGE_ID} \
             -Dsonar.pullrequest.branch="jenkins" \
-            -Dsonar.pullrequest.base="dev" \
+            -Dsonar.pullrequest.base="origin/dev" \
             -Dsonar.pullrequest.github.repository="Paper-Street-Soap-Co/commons-geometry" \
             -Dsonar.scm.provider=git \
             -Dsonar.java.binaries=/tmp
