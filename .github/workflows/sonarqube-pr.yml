@@ -33,3 +33,4 @@ jobs:
           -Dsonar.pullrequest.github.repository=${{ github.repository }}
           -Dsonar.scm.revision=${{ github.event.pull_request.head.sha }} 
           -Dsonar.scm.provider=git
+          -Dsonar.java.binaries=/tmp  
