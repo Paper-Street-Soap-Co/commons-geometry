@@ -1,27 +1,20 @@
-name: sonarqube-pr
-
+name: sonarqube-scanner
 on: [pull_request]
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-      - name: Setup sonarqube
-        uses: warchant/setup-sonar-scanner@v1
-
-      - name: 'Checkout repository on branch: ${{ github.REF }}'
+      - name: 'checkout repository on branch: ${{ github.REF }}'
         uses: actions/checkout@v2
         with:
           ref: ${{ github.HEAD_REF }}
-
-      - name: Retrieve entire repository history
+      - name: get repository history
         run: |
           git fetch --prune --unshallow
-      - name: Run an analysis of the PR
+      - name: setup sonarqube
+        uses: warchant/setup-sonar-scanner@v1
+      - name: 'sonarqube scan for PR #${{ github.event.number }}'
         env:
-          # to get access to secrets.SONAR_TOKEN, provide GITHUB_TOKEN
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: sonar-scanner
           -Dsonar.host.url=${{ secrets.SONAR_URL }}
