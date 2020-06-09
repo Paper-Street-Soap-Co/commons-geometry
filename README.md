@@ -55,7 +55,7 @@ Apache Commons Geometry
 --->
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
-The Apache Commons Geometry project provides geometric types and utilities.
+The Apache Commons Geometry project provides geometric types and utilities for Roblox
 
 Documentation
 -------------
