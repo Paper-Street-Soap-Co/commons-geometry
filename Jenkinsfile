@@ -1,10 +1,32 @@
 pipeline {
   agent any
   stages {
-    stage('build') {
+    stage('Sonarqube') {
+      environment {
+        sonarqube = tool 'sonarqube'
+        sonarqube_token = credentials('sonarqube')
+      }
       steps {
-        sh "uname -a"
-        echo sh(returnStdout: true, script: 'env')
+        script {
+          env.GIT_REPO_NAME = env.GIT_URL.replaceFirst(/^.*\/([^\/]+?).git$/, '$1')
+        }
+        withSonarQubeEnv('sonarqube') {
+          sh """${sonarqube}/bin/sonar-scanner \
+            -Dsonar.host.url="https://sonar.hauntedmansion.io" \
+            -Dsonar.login=${sonarqube_token} \
+            -Dsonar.projectKey=acg \
+            -Dsonar.pullrequest.key=${env.CHANGE_ID} \
+            -Dsonar.pullrequest.branch=${BRANCH_NAME} \
+            -Dsonar.pullrequest.base=${CHANGE_TARGET} \
+            -Dsonar.pullrequest.github.repository=${env.GIT_REPO_NAME} \
+            -Dsonar.scm.provider=git \
+            -Dsonar.java.binaries=/tmp
+          """
+        }
+        sleep(10)
+        timeout(time: 60, unit: 'SECONDS') {
+          waitForQualityGate abortPipeline: true
+        }
       }
     }
   }
