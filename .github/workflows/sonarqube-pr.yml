@@ -1,4 +1,4 @@
-name: sonarqube-scanner
+name: Sonarqube Scanner
 on: [pull_request]
 jobs:
   build:

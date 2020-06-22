@@ -4,6 +4,7 @@ pipeline {
     stage('build') {
       steps {
         sh "uname -a"
+        echo sh(returnStdout: true, script: 'env')
       }
     }
   }
