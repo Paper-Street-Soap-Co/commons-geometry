@@ -40,7 +40,7 @@
  |                                                                      |
  +======================================================================+
 --->
-Apache Commons Geometry Test
+Apache Commons Geometry Testing
 ===================
 
 [![Build Status](https://travis-ci.org/apache/commons-geometry.svg?branch=master)](https://travis-ci.org/apache/commons-geometry)
