@@ -11,11 +11,10 @@ pipeline {
         }
         withSonarQubeEnv('sonarqube') {
           sh """mvn sonar:sonar \
-            -Dsonar.projectKey=acg \
             -Dsonar.pullrequest.key=${env.CHANGE_ID} \
             -Dsonar.pullrequest.branch=${BRANCH_NAME} \
             -Dsonar.pullrequest.base=${CHANGE_TARGET} \
-            -Dsonar.pullrequest.github.repository=${env.GIT_REPO_NAME} \
+            -Dsonar.pullrequest.github.repository=Paper-Street-Soap-Co/${env.GIT_REPO_NAME} \
             -Dsonar.scm.provider=git \
             -Dsonar.java.binaries=/tmp
           """
