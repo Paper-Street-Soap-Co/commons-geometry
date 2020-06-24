@@ -5,18 +5,12 @@ pipeline {
   }
   stages {
     stage('Sonarqube') {
-      environment {
-        sonarqube = tool 'sonarqube'
-        sonarqube_token = credentials('sonarqube')
-      }
       steps {
         script {
           env.GIT_REPO_NAME = env.GIT_URL.replaceFirst(/^.*\/([^\/]+?).git$/, '$1')
         }
         withSonarQubeEnv('sonarqube') {
           sh """mvn sonar:sonar \
-            -Dsonar.host.url="https://sonar.hauntedmansion.io" \
-            -Dsonar.login=${sonarqube_token} \
             -Dsonar.projectKey=acg \
             -Dsonar.pullrequest.key=${env.CHANGE_ID} \
             -Dsonar.pullrequest.branch=${BRANCH_NAME} \
